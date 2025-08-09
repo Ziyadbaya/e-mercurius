@@ -1,0 +1,11 @@
+rootProject.name = 'e-mercurius'
+
+include 'common-libs'
+include 'microservices:api-gateway'
+include 'microservices:config-server'
+include 'microservices:discovery-server'
+include 'microservices:auth-service'
+include 'microservices:product-service'
+include 'microservices:order-service'
+include 'microservices:payment-service'
+include 'microservices:notification-service'

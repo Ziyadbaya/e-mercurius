@@ -7,7 +7,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Setter
 @Getter
@@ -21,10 +21,10 @@ public abstract class BaseEntity {
 
     @CreationTimestamp
     @Column(updatable = false)
-    protected Timestamp createdDate;
+    protected LocalDateTime createdDate;
 
     @UpdateTimestamp
     @Column(insertable = false)
-    protected Timestamp lastModifiedDate;
+    protected LocalDateTime lastModifiedDate;
 
 }

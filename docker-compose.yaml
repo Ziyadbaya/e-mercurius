@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  postgres:
+  postgres_auth:
     image: postgres:latest
     container_name: postgres_auth
     environment:
@@ -9,9 +9,24 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: auth_db
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_auth_data:/var/lib/postgresql/data
     ports:
       - "5433:5432"
+    networks:
+      - postgres_network
+    restart: unless-stopped
+
+  postgres_payment:
+    image: postgres:latest
+    container_name: postgres_payment
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: payment_db
+    volumes:
+      - postgres_payment_data:/var/lib/postgresql/data
+    ports:
+      - "5434:5432"
     networks:
       - postgres_network
     restart: unless-stopped
@@ -29,11 +44,10 @@ services:
     networks:
       - postgres_network
     restart: unless-stopped
-    depends_on:
-      - postgres
 
 volumes:
-  postgres_data:
+  postgres_auth_data:
+  postgres_payment_data:
   pgadmin_data:
 
 networks:

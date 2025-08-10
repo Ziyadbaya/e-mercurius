@@ -1,9 +1,33 @@
 package com.emercurius.authservice.entities;
 
 import com.emercurius.commonlibs.entities.BaseEntity;
+import com.emercurius.commonlibs.enumerations.Role;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
+import java.util.List;
+
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Table(name = "users")
 public class User extends BaseEntity {
 
-
+    private String email;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String password;
+    @Enumerated(EnumType.STRING)
+    private Role role;
+    private String firstName;
+    private String lastName;
+    private String phoneNumber;
+    @OneToMany
+    @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private List<Address> address;
+    private long activeAddress;
 
 }

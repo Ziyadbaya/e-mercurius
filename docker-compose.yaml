@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   postgres_auth:
-    image: postgres:latest
+    image: postgres:15.6
     container_name: postgres_auth
     environment:
       POSTGRES_USER: postgres
@@ -17,7 +17,7 @@ services:
     restart: unless-stopped
 
   postgres_payment:
-    image: postgres:latest
+    image: postgres:15.6
     container_name: postgres_payment
     environment:
       POSTGRES_USER: postgres
@@ -31,8 +31,37 @@ services:
       - postgres_network
     restart: unless-stopped
 
+  mongo_product:
+    image: mongo:6.0.15
+    container_name: mongodb_product
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpassword
+    volumes:
+      - mongo_product_data:/data/db
+    networks:
+      - mongo_network
+
+  mongo-express:
+    image: mongo-express:1.0.0-alpha.4
+    container_name: mongo-express
+    restart: unless-stopped
+    ports:
+      - "5051:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: rootpassword
+      ME_CONFIG_MONGODB_SERVER: mongodb_product
+    networks:
+      - mongo_network
+    depends_on:
+      - mongo_product
+
   pgadmin:
-    image: dpage/pgadmin4:latest
+    image: dpage/pgadmin4:8.10
     container_name: pgadmin
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@example.com
@@ -48,8 +77,11 @@ services:
 volumes:
   postgres_auth_data:
   postgres_payment_data:
+  mongo_product_data:
   pgadmin_data:
 
 networks:
   postgres_network:
+    driver: bridge
+  mongo_network:
     driver: bridge

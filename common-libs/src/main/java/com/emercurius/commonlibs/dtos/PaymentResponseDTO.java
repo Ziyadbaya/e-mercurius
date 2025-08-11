@@ -2,6 +2,7 @@ package com.emercurius.commonlibs.dtos;
 
 import com.emercurius.commonlibs.enumerations.PaymentMethod;
 import com.emercurius.commonlibs.enumerations.PaymentStatus;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -13,7 +14,7 @@ public record PaymentResponseDTO(
         PaymentMethod paymentMethod,
         Long orderId,
         Long userId,
-        LocalDateTime createdAt,
-        LocalDateTime updatedAt
+        LocalDateTime createdDate,
+        LocalDateTime lastModifiedDate
 ) {
 }

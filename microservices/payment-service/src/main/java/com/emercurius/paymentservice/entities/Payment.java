@@ -20,6 +20,7 @@ public class Payment extends BaseEntity {
     private BigDecimal amount;
 
     @Enumerated(EnumType.STRING)
+    @Builder.Default()
     private PaymentStatus status = PaymentStatus.PENDING;
 
     @Enumerated(EnumType.STRING)
@@ -29,6 +30,6 @@ public class Payment extends BaseEntity {
     private long orderId;
 
     @Column(name = "user_id")
-    private long userid;
+    private long userId;
 
 }

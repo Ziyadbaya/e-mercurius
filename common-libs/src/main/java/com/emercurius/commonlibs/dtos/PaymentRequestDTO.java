@@ -17,10 +17,9 @@ public record PaymentRequestDTO(
         PaymentMethod paymentMethod,
 
         @NotNull(message = "Order ID cannot be null")
-        long orderId,
+        Long orderId,
 
         @NotNull(message = "User ID cannot be null")
-        long userid
-
+        Long userId
 ) {
 }

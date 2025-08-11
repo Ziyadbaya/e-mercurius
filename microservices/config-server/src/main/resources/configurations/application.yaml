@@ -1,0 +1,8 @@
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka/  # Points to Eureka Server
+spring:
+  cloud:
+    config:
+      override-system-properties: false

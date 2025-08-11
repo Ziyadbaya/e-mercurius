@@ -46,14 +46,14 @@ databaseChangeLog:
                     nullable: false
 
               - column:
-                  name: created_at
+                  name: created_date
                   type: timestamp
                   defaultValueComputed: CURRENT_TIMESTAMP
                   constraints:
                     nullable: false
 
               - column:
-                  name: updated_at
+                  name: last_modified_date
                   type: timestamp
                   defaultValueComputed: CURRENT_TIMESTAMP
                   constraints:

@@ -3,7 +3,7 @@ package com.emercurius.paymentservice.services;
 import com.emercurius.commonlibs.dtos.PaymentRequestDTO;
 import com.emercurius.commonlibs.dtos.PaymentResponseDTO;
 import com.emercurius.paymentservice.entities.Payment;
-import com.emercurius.paymentservice.exceptions.PaymentNotFoundException;
+import com.emercurius.commonlibs.exceptions.EntityNotFoundException;
 import com.emercurius.paymentservice.mapper.PaymentMapper;
 import com.emercurius.paymentservice.repositories.PaymentRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ public class PaymentService {
 
     private PaymentResponseDTO getPaymentById(long id) {
         Payment payment = paymentRepository.findById(id)
-                .orElseThrow(() -> new PaymentNotFoundException("Payment not found with id " + id));
+                .orElseThrow(() -> new EntityNotFoundException("Payment not found with id " + id));
         return paymentMapper.toDTO(payment);
     }
 

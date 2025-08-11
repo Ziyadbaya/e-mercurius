@@ -6,6 +6,8 @@ This project is a **deep microservices architecture training app** for building 
 
 ## 🚀 Project Overview
 
+![Global_Architecture.png](digrams/Global_Architecture.png)
+
 This system consists of multiple Spring Boot microservices, each encapsulating a business capability:
 
 - API Gateway (Spring Cloud Gateway)

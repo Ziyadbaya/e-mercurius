@@ -1,6 +1,5 @@
 package com.emercurius.productservice.services;
 
-import com.emercurius.commonlibs.dtos.PaymentResponseDTO;
 import com.emercurius.commonlibs.dtos.ProductRequestDTO;
 import com.emercurius.commonlibs.dtos.ProductResponseDTO;
 import com.emercurius.commonlibs.exceptions.EntityNotFoundException;
@@ -17,16 +16,24 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
 
-    public ProductResponseDTO createProduct(ProductRequestDTO paymentRequestDto) {
-        Product product = productMapper.toEntity(paymentRequestDto);
+    public ProductResponseDTO createProduct(ProductRequestDTO productRequestDTO) {
+        Product product = productMapper.toEntity(productRequestDTO);
         Product savedProduct = productRepository.save(product);
         return productMapper.toDTO(savedProduct);
     }
 
-    private ProductResponseDTO getProductById(String id) {
-        Product payment = productRepository.findById(id)
+    public ProductResponseDTO updateProduct(String id, ProductRequestDTO requestDTO) {
+        Product existingProduct = productRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Product not found with id " + id));
-        return productMapper.toDTO(payment);
+        Product updatedProduct = productMapper.partialUpdate(requestDTO, existingProduct);
+        Product savedProduct = productRepository.save(updatedProduct);
+        return productMapper.toDTO(savedProduct);
+    }
+
+    public ProductResponseDTO getProductById(String id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Product not found with id " + id));
+        return productMapper.toDTO(product);
     }
 
 }

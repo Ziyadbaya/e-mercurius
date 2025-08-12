@@ -1,5 +1,6 @@
 package com.emercurius.paymentservice.handler;
 
+import com.emercurius.commonlibs.dtos.errors.ErrorResponse;
 import com.emercurius.commonlibs.exceptions.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,8 +11,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<String> handle(EntityNotFoundException ex) {
+    public ResponseEntity<ErrorResponse> handle(EntityNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(ex.getMessage());
+                .body(
+                        new ErrorResponse(ex.getMessage(), HttpStatus.NOT_FOUND.value())
+                );
     }
 }

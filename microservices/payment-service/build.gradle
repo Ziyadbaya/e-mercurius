@@ -43,6 +43,7 @@ dependencies {
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
     implementation 'org.liquibase:liquibase-core'
     runtimeOnly 'org.postgresql:postgresql'
+    implementation("com.stripe:stripe-java:29.4.0")
 }
 
 dependencyManagement {

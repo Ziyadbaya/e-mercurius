@@ -3,3 +3,6 @@ spring:
     import: optional:configserver:http://localhost:9000
   application:
     name: payment-service
+
+stripe.secret.key: "sk_test_51RvFHV4DcgGdOIIelbDZ25W5d0fUHNoMLfmtfZFlLwMHUyhBYZosr6FAdgDa0wKrOpEZfvngOOI5fMHFAZMrq0oM00EYBcmMhk"
+stripe.public.key: "pk_test_51RvFHV4DcgGdOIIecgG9KhIRVeDp931OW1V9niobVbDsZra74jvy1u8h6CaIwQaJltVWhq7ZJny5uzrNRsZL9j3S00Io8e8Ua2"

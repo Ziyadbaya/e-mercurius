@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
+import javax.management.DescriptorKey;
 import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)

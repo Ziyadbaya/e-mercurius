@@ -1,8 +1,8 @@
 package com.emercurius.paymentservice.controllers;
 
-import com.emercurius.commonlibs.dtos.ProductResponseDTO;
-import com.emercurius.commonlibs.dtos.StripeResponse;
-import com.emercurius.commonlibs.enumerations.PaymentStatus;
+import com.emercurius.commonlibs.dto.product.ProductResponseDTO;
+import com.emercurius.commonlibs.dto.payment.StripeResponse;
+import com.emercurius.commonlibs.enums.PaymentStatus;
 import com.emercurius.paymentservice.services.StripeService;
 import com.stripe.exception.StripeException;
 import com.stripe.model.checkout.Session;
@@ -26,7 +26,7 @@ public class StripeController {
     private String frontendSuccessUrl;
 
     @PostMapping("/checkout")
-    public ResponseEntity<StripeResponse> checkout(@RequestBody List<ProductResponseDTO> productResponseDTO) throws StripeException {
+    public ResponseEntity<StripeResponse> checkout(@RequestBody List<ProductResponseDTO> productResponseDTO) {
         StripeResponse stripeResponse = stripeService.checkoutStripe(productResponseDTO);
         return ResponseEntity.ok(stripeResponse);
     }

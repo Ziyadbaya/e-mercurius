@@ -1,7 +1,7 @@
 package com.emercurius.productservice.services;
 
-import com.emercurius.commonlibs.dtos.CategoryResponseDTO;
-import com.emercurius.commonlibs.dtos.CategoryRequestDTO;
+import com.emercurius.commonlibs.dto.product.CategoryResponseDTO;
+import com.emercurius.commonlibs.dto.product.CategoryRequestDTO;
 import com.emercurius.commonlibs.exceptions.EntityNotFoundException;
 import com.emercurius.productservice.entities.Category;
 import com.emercurius.productservice.mapper.CategoryMapper;

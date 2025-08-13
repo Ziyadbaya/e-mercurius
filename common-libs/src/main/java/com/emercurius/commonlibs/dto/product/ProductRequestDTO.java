@@ -1,4 +1,4 @@
-package com.emercurius.commonlibs.dtos;
+package com.emercurius.commonlibs.dto.product;
 
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;

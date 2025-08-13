@@ -1,7 +1,7 @@
 package com.emercurius.productservice.controllers;
 
-import com.emercurius.commonlibs.dtos.ProductRequestDTO;
-import com.emercurius.commonlibs.dtos.ProductResponseDTO;
+import com.emercurius.commonlibs.dto.product.ProductRequestDTO;
+import com.emercurius.commonlibs.dto.product.ProductResponseDTO;
 import com.emercurius.productservice.services.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

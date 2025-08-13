@@ -1,4 +1,4 @@
-package com.emercurius.commonlibs.dtos.errors;
+package com.emercurius.commonlibs.dto.errors;
 
 
 public record ErrorResponse(

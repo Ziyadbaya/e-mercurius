@@ -1,8 +1,8 @@
 package com.emercurius.paymentservice.entities;
 
 import com.emercurius.commonlibs.entities.BaseEntity;
-import com.emercurius.commonlibs.enumerations.PaymentMethod;
-import com.emercurius.commonlibs.enumerations.PaymentStatus;
+import com.emercurius.commonlibs.enums.PaymentMethod;
+import com.emercurius.commonlibs.enums.PaymentStatus;
 import jakarta.persistence.*;
 import lombok.*;
 

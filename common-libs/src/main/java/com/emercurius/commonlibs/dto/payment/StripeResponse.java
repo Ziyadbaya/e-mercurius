@@ -1,4 +1,4 @@
-package com.emercurius.commonlibs.dtos;
+package com.emercurius.commonlibs.dto.payment;
 
 public record StripeResponse(
         String status,

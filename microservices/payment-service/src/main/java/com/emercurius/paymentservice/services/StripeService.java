@@ -1,11 +1,11 @@
 package com.emercurius.paymentservice.services;
 
-import com.emercurius.commonlibs.dtos.PaymentRequestDTO;
-import com.emercurius.commonlibs.dtos.PaymentResponseDTO;
-import com.emercurius.commonlibs.dtos.ProductResponseDTO;
-import com.emercurius.commonlibs.dtos.StripeResponse;
-import com.emercurius.commonlibs.enumerations.PaymentMethod;
-import com.emercurius.commonlibs.enumerations.PaymentStatus;
+import com.emercurius.commonlibs.dto.payment.PaymentRequestDTO;
+import com.emercurius.commonlibs.dto.payment.PaymentResponseDTO;
+import com.emercurius.commonlibs.dto.product.ProductResponseDTO;
+import com.emercurius.commonlibs.dto.payment.StripeResponse;
+import com.emercurius.commonlibs.enums.PaymentMethod;
+import com.emercurius.commonlibs.enums.PaymentStatus;
 import com.stripe.exception.StripeException;
 import com.stripe.model.checkout.Session;
 import com.stripe.param.checkout.SessionCreateParams;

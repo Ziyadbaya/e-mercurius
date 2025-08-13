@@ -1,6 +1,6 @@
 package com.emercurius.orderservice.handler;
 
-import com.emercurius.commonlibs.dtos.errors.ErrorResponse;
+import com.emercurius.commonlibs.dto.errors.ErrorResponse;
 import com.emercurius.commonlibs.exceptions.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

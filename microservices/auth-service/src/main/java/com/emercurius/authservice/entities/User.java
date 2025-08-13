@@ -1,12 +1,11 @@
 package com.emercurius.authservice.entities;
 
 import com.emercurius.commonlibs.entities.BaseEntity;
-import com.emercurius.commonlibs.enumerations.Role;
+import com.emercurius.commonlibs.enums.Role;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
-import javax.management.DescriptorKey;
 import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)

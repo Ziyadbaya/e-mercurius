@@ -1,6 +1,6 @@
-package com.emercurius.commonlibs.dtos;
+package com.emercurius.commonlibs.dto.payment;
 
-import com.emercurius.commonlibs.enumerations.PaymentMethod;
+import com.emercurius.commonlibs.enums.PaymentMethod;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 

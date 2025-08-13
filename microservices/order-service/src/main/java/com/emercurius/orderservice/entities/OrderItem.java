@@ -1,9 +1,10 @@
 package com.emercurius.orderservice.entities;
 
 import com.emercurius.commonlibs.entities.BaseEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.math.BigDecimal;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -11,15 +12,20 @@ import lombok.*;
 @NoArgsConstructor
 @Data
 @Builder
+@Table(name = "order_items")
 public class OrderItem extends BaseEntity {
 
-    private Long amount;
+    private BigDecimal totalAmount;
 
     private Long quantity;
 
     private String productName;
 
-    @Column(name = "order_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
+    private Order order;
+
+    @Column(name = "order_id", insertable = false, updatable = false)
     private Long orderId;
 
     private Long userId;

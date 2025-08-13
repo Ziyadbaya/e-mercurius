@@ -31,6 +31,21 @@ services:
       - postgres_network
     restart: unless-stopped
 
+  postgres_order:
+    image: postgres:15.6
+    container_name: postgres_order
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: order_db
+    volumes:
+      - postgres_order_data:/var/lib/postgresql/data
+    ports:
+      - "5435:5432"
+    networks:
+      - postgres_network
+    restart: unless-stopped
+
   mongo_product:
     image: mongo:6.0.15
     container_name: mongodb_product
@@ -79,6 +94,7 @@ volumes:
   postgres_payment_data:
   mongo_product_data:
   pgadmin_data:
+  postgres_order_data:
 
 networks:
   postgres_network:

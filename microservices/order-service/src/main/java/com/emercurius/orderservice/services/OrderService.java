@@ -1,0 +1,48 @@
+package com.emercurius.orderservice.services;
+
+import com.emercurius.commonlibs.dtos.OrderRequestDTO;
+import com.emercurius.commonlibs.dtos.OrderResponseDTO;
+import com.emercurius.commonlibs.exceptions.EntityNotFoundException;
+import com.emercurius.orderservice.entities.Order;
+import com.emercurius.orderservice.entities.OrderItem;
+import com.emercurius.orderservice.mapper.OrderItemMapper;
+import com.emercurius.orderservice.mapper.OrderMapper;
+import com.emercurius.orderservice.repositories.OrderRepository;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@RequiredArgsConstructor
+@Service
+public class OrderService {
+
+    private final OrderRepository orderRepository;
+    private final OrderMapper orderMapper;
+    private final OrderItemMapper orderItemMapper;
+
+    @Transactional
+    public OrderResponseDTO createOrder(OrderRequestDTO orderRequestDTO) {
+
+        Order order = orderMapper.toEntity(orderRequestDTO);
+        order = orderRepository.save(order);
+
+        Order finalOrder = order;
+
+        orderRequestDTO.items().forEach(itemDTO -> {
+            OrderItem item = orderItemMapper.toEntity(itemDTO);
+            finalOrder.addItem(item);
+        });
+
+        Order savedOrder = orderRepository.save(finalOrder);
+        return orderMapper.toDTO(savedOrder);
+    }
+
+    public OrderResponseDTO findById(Long id) {
+        Order order = orderRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Order not found with id " + id));
+        return orderMapper.toDTO(order);
+    }
+
+}

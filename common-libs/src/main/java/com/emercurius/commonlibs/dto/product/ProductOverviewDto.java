@@ -3,16 +3,16 @@ package com.emercurius.commonlibs.dto.product;
 import java.math.BigDecimal;
 import java.util.List;
 
-public record ProductResponseDTO(
+public record ProductOverviewDto(
         String id,
         String name,
         String description,
         BigDecimal price,
-        Integer stockQuantity,
-        CategoryResponseDTO category,
-        List<ImageResponseDTO> images,
+        String currency,
+        CategoryRequestDTO category,
+        List<ImageRequestDTO> images,
         List<String> tags,
-        boolean active,
-        List<ProductReviewDto> reviews
+        Double averageRating,
+        Integer reviewCounter
 ) {
 }

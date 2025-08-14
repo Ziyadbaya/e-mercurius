@@ -1,10 +1,15 @@
 package com.emercurius.productservice.controllers;
 
+import com.emercurius.commonlibs.dto.common.PageResponse;
+import com.emercurius.commonlibs.dto.product.ProductFilter;
+import com.emercurius.commonlibs.dto.product.ProductOverviewDto;
 import com.emercurius.commonlibs.dto.product.ProductRequestDTO;
 import com.emercurius.commonlibs.dto.product.ProductResponseDTO;
 import com.emercurius.productservice.services.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +37,12 @@ public class ProductController {
     @GetMapping("/{id}")
     public ResponseEntity<ProductResponseDTO> getProduct(@PathVariable String id) {
         return ResponseEntity.ok(productService.getProductById(id));
+    }
+
+    @GetMapping
+    public PageResponse<ProductOverviewDto> getProducts(ProductFilter filter,
+                                                        @PageableDefault(size = 20, sort = "name") Pageable pageable) {
+        return productService.getAllProducts(filter, pageable);
     }
 
 }

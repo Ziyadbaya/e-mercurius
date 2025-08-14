@@ -22,18 +22,14 @@ public class OrderService {
 
     @Transactional
     public OrderResponseDTO createOrder(OrderRequestDTO orderRequestDTO) {
-
         Order order = orderMapper.toEntity(orderRequestDTO);
-        order = orderRepository.save(order);
-
-        Order finalOrder = order;
 
         orderRequestDTO.items().forEach(itemDTO -> {
             OrderItem item = orderItemMapper.toEntity(itemDTO);
-            finalOrder.addItem(item);
+            order.addItem(item);
         });
 
-        Order savedOrder = orderRepository.save(finalOrder);
+        Order savedOrder = orderRepository.save(order);
         return orderMapper.toDTO(savedOrder);
     }
 

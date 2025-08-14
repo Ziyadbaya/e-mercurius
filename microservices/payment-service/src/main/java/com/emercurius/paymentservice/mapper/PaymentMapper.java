@@ -1,7 +1,7 @@
 package com.emercurius.paymentservice.mapper;
 
-import com.emercurius.commonlibs.dtos.PaymentRequestDTO;
-import com.emercurius.commonlibs.dtos.PaymentResponseDTO;
+import com.emercurius.commonlibs.dto.payment.PaymentRequestDTO;
+import com.emercurius.commonlibs.dto.payment.PaymentResponseDTO;
 import com.emercurius.paymentservice.entities.Payment;
 import org.mapstruct.*;
 

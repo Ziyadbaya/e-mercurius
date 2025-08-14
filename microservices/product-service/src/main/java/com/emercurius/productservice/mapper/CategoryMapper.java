@@ -1,7 +1,7 @@
 package com.emercurius.productservice.mapper;
 
-import com.emercurius.commonlibs.dtos.CategoryRequestDTO;
-import com.emercurius.commonlibs.dtos.CategoryResponseDTO;
+import com.emercurius.commonlibs.dto.product.CategoryRequestDTO;
+import com.emercurius.commonlibs.dto.product.CategoryResponseDTO;
 import com.emercurius.productservice.entities.Category;
 import org.mapstruct.*;
 

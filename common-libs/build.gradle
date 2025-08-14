@@ -16,7 +16,10 @@ repositories {
 }
 
 dependencies {
-    // JPA/Hibernate
+    // Spring Data Commons
+    api 'org.springframework.data:spring-data-commons:3.5.2'
+
+    // JPA/Hibernate (if needed for other non-Spring Data components)
     implementation 'jakarta.persistence:jakarta.persistence-api:3.1.0'
     implementation 'org.hibernate:hibernate-core:6.4.4.Final'
 

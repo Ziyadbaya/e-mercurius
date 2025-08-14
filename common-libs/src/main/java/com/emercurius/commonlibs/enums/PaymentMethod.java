@@ -1,4 +1,4 @@
-package com.emercurius.commonlibs.enumerations;
+package com.emercurius.commonlibs.enums;
 
 public enum PaymentMethod {
     STRIPE,

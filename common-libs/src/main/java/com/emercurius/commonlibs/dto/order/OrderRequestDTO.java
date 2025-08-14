@@ -1,4 +1,4 @@
-package com.emercurius.commonlibs.dtos;
+package com.emercurius.commonlibs.dto.order;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;

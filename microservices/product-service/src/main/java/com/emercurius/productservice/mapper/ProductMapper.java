@@ -1,7 +1,8 @@
 package com.emercurius.productservice.mapper;
 
-import com.emercurius.commonlibs.dtos.ProductRequestDTO;
-import com.emercurius.commonlibs.dtos.ProductResponseDTO;
+import com.emercurius.commonlibs.dto.product.ProductOverviewDto;
+import com.emercurius.commonlibs.dto.product.ProductRequestDTO;
+import com.emercurius.commonlibs.dto.product.ProductResponseDTO;
 import com.emercurius.commonlibs.exceptions.EntityNotFoundException;
 import com.emercurius.productservice.entities.Category;
 import com.emercurius.productservice.entities.Product;
@@ -23,6 +24,8 @@ public abstract class ProductMapper {
     public abstract Product toEntity(ProductRequestDTO requestDTO);
 
     public abstract ProductResponseDTO toDTO(Product product);
+
+    public abstract ProductOverviewDto toOverviewDTO(Product product);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "category", source = "categoryId", qualifiedByName = "mapCategory")

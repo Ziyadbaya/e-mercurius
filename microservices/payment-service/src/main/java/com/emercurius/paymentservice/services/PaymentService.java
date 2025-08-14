@@ -1,14 +1,13 @@
 package com.emercurius.paymentservice.services;
 
-import com.emercurius.commonlibs.dtos.PaymentRequestDTO;
-import com.emercurius.commonlibs.dtos.PaymentResponseDTO;
-import com.emercurius.commonlibs.enumerations.PaymentStatus;
+import com.emercurius.commonlibs.dto.payment.PaymentRequestDTO;
+import com.emercurius.commonlibs.dto.payment.PaymentResponseDTO;
+import com.emercurius.commonlibs.enums.PaymentStatus;
 import com.emercurius.paymentservice.entities.Payment;
 import com.emercurius.commonlibs.exceptions.EntityNotFoundException;
 import com.emercurius.paymentservice.mapper.PaymentMapper;
 import com.emercurius.paymentservice.repositories.PaymentRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 @Service

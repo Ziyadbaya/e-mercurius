@@ -1,7 +1,7 @@
 package com.emercurius.orderservice.services;
 
-import com.emercurius.commonlibs.dtos.OrderRequestDTO;
-import com.emercurius.commonlibs.dtos.OrderResponseDTO;
+import com.emercurius.commonlibs.dto.order.OrderRequestDTO;
+import com.emercurius.commonlibs.dto.order.OrderResponseDTO;
 import com.emercurius.commonlibs.exceptions.EntityNotFoundException;
 import com.emercurius.orderservice.entities.Order;
 import com.emercurius.orderservice.entities.OrderItem;
@@ -11,8 +11,6 @@ import com.emercurius.orderservice.repositories.OrderRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @Service

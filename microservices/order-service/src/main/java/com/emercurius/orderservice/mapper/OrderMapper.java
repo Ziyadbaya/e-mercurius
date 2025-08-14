@@ -1,7 +1,7 @@
 package com.emercurius.orderservice.mapper;
 
-import com.emercurius.commonlibs.dtos.OrderRequestDTO;
-import com.emercurius.commonlibs.dtos.OrderResponseDTO;
+import com.emercurius.commonlibs.dto.order.OrderRequestDTO;
+import com.emercurius.commonlibs.dto.order.OrderResponseDTO;
 import com.emercurius.orderservice.entities.Order;
 import org.mapstruct.*;
 

@@ -1,8 +1,7 @@
-package com.emercurius.commonlibs.dtos;
+package com.emercurius.commonlibs.dto.payment;
 
-import com.emercurius.commonlibs.enumerations.PaymentMethod;
-import com.emercurius.commonlibs.enumerations.PaymentStatus;
-import org.springframework.format.annotation.DateTimeFormat;
+import com.emercurius.commonlibs.enums.PaymentMethod;
+import com.emercurius.commonlibs.enums.PaymentStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

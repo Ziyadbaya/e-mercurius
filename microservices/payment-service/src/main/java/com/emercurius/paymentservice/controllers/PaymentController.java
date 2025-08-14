@@ -1,8 +1,8 @@
 package com.emercurius.paymentservice.controllers;
 
-import com.emercurius.commonlibs.dtos.PaymentRequestDTO;
-import com.emercurius.commonlibs.dtos.PaymentResponseDTO;
-import com.emercurius.commonlibs.enumerations.PaymentStatus;
+import com.emercurius.commonlibs.dto.payment.PaymentRequestDTO;
+import com.emercurius.commonlibs.dto.payment.PaymentResponseDTO;
+import com.emercurius.commonlibs.enums.PaymentStatus;
 import com.emercurius.paymentservice.services.PaymentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

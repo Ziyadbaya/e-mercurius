@@ -1,4 +1,4 @@
-package com.emercurius.commonlibs.dtos;
+package com.emercurius.commonlibs.dto.product;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -12,6 +12,7 @@ public record ProductResponseDTO(
         CategoryResponseDTO category,
         List<ImageResponseDTO> images,
         List<String> tags,
-        boolean active
+        boolean active,
+        List<ProductReviewDto> reviews
 ) {
 }

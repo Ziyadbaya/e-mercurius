@@ -1,4 +1,4 @@
-package com.emercurius.commonlibs.dtos;
+package com.emercurius.commonlibs.dto.product;
 
 public record ImageResponseDTO(
         String url,

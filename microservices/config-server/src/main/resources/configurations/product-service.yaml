@@ -10,3 +10,8 @@ spring:
       host: localhost
       port: 27017
       authentication-database: admin
+
+grpc:
+  server:
+    port: 9050
+    reflection-service-enabled: true

@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package productservice;
+
+option java_multiple_files = true;
+option java_package = "com.emercurius.productservice.grpc";
+option java_outer_classname = "ProductServiceProto";
+
+message ProductResponseDTO {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  double price = 4;
+  int32 stockQuantity = 5;
+}
+
+message ProductOverviewDto {
+  string id = 1;
+  string name = 2;
+  double price = 3;
+}
+
+message ProductIdRequest {
+  string id = 1;
+}
+
+message StockQuantityResponse {
+  int32 stockQuantity = 1;
+}
+
+message StockQuantityUpdateRequest {
+  string productId = 1;
+  int32 newQuantity = 2;
+}
+
+service ProductGrpcService {
+
+  rpc GetProductById(ProductIdRequest) returns (ProductResponseDTO);
+  rpc GetStockQuantity(ProductIdRequest) returns (StockQuantityResponse);
+  rpc UpdateStockQuantity(StockQuantityUpdateRequest) returns (StockQuantityResponse);
+
+}

@@ -6,6 +6,7 @@ import com.emercurius.commonlibs.dto.product.ProductResponseDTO;
 import com.emercurius.commonlibs.exceptions.EntityNotFoundException;
 import com.emercurius.productservice.entities.Category;
 import com.emercurius.productservice.entities.Product;
+import com.emercurius.productservice.grpc.ProductGrpcResponseDTO;
 import com.emercurius.productservice.repositories.CategoryRepository;
 import org.mapstruct.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +40,5 @@ public abstract class ProductMapper {
                 .orElseThrow(() -> new EntityNotFoundException("Category not found: " + categoryId));
     }
 
-    public abstract com.emercurius.productservice.grpc.ProductResponseDTO toGrpcDTO(ProductResponseDTO product);
+    public abstract ProductGrpcResponseDTO toGrpcDTO(ProductResponseDTO product);
 }

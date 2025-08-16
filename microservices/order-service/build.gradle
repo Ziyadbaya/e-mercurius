@@ -2,7 +2,6 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.5.4'
     id 'io.spring.dependency-management' version '1.1.7'
-    id 'com.google.protobuf' version '0.9.4'
 }
 
 group = 'com.emercurius'
@@ -24,10 +23,6 @@ repositories {
     mavenCentral()
 }
 
-ext {
-    set('springCloudVersion', "2025.0.0")
-    set('springGrpcVersion', "0.10.0")
-}
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -45,36 +40,18 @@ dependencies {
     implementation 'org.mapstruct:mapstruct:1.6.3'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
     implementation 'org.liquibase:liquibase-core'
-    implementation 'io.grpc:grpc-services'
-    implementation 'org.springframework.grpc:spring-grpc-spring-boot-starter'
-    testImplementation 'org.springframework.grpc:spring-grpc-test'
+    implementation "net.devh:grpc-client-spring-boot-starter:${grpcStarterVersion}"
+    implementation "io.grpc:grpc-netty-shaded:${grpcVersion}"
+    testImplementation "io.grpc:grpc-testing:${grpcVersion}"
 }
 
 
 dependencyManagement {
     imports {
         mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
-        mavenBom "org.springframework.grpc:spring-grpc-dependencies:${springGrpcVersion}"
     }
 }
 
-protobuf {
-    protoc {
-        artifact = 'com.google.protobuf:protoc'
-    }
-    plugins {
-        grpc {
-            artifact = 'io.grpc:protoc-gen-grpc-java'
-        }
-    }
-    generateProtoTasks {
-        all()*.plugins {
-            grpc {
-                option '@generated=omit'
-            }
-        }
-    }
-}
 
 tasks.named('test') {
     useJUnitPlatform()

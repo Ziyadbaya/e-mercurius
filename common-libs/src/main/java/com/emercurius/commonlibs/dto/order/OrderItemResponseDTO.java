@@ -8,7 +8,7 @@ public record OrderItemResponseDTO(
 
         String productName,
 
-        Long quantity,
+        int quantity,
 
         Long orderId,
 

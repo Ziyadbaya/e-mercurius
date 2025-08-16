@@ -1,10 +1,8 @@
 package com.emercurius.productservice.grpc;
 
-import com.emercurius.commonlibs.exceptions.EntityNotFoundException;
-import com.emercurius.productservice.entities.Product;
+import com.emercurius.commonlibs.dto.product.ProductRequestDTO;
 import com.emercurius.productservice.mapper.ProductMapper;
-import com.emercurius.productservice.mapper.ProductReviewMapper;
-import com.emercurius.productservice.repositories.ProductRepository;
+import com.emercurius.productservice.services.ProductService;
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
 import net.devh.boot.grpc.server.service.GrpcService;
@@ -13,24 +11,21 @@ import net.devh.boot.grpc.server.service.GrpcService;
 @RequiredArgsConstructor
 public class ProductGrpcServiceImpl extends ProductGrpcServiceGrpc.ProductGrpcServiceImplBase {
 
-    private final ProductRepository productRepository;
+    private final ProductService productService;
     private final ProductMapper productMapper;
-    private final ProductReviewMapper productReviewMapper;
 
     @Override
     public void getProductById(ProductIdRequest request, StreamObserver<ProductResponseDTO> responseObserver) {
-        Product product = productRepository.findById(request.getId())
-                .orElseThrow(() -> new EntityNotFoundException("Product not found"));
+        var product = productService.getProductById(request.getId());
         responseObserver.onNext(productMapper.toGrpcDTO(product));
         responseObserver.onCompleted();
     }
 
     @Override
     public void getStockQuantity(ProductIdRequest request, StreamObserver<StockQuantityResponse> responseObserver) {
-        Product product = productRepository.findById(request.getId())
-                .orElseThrow(() -> new EntityNotFoundException("Product not found"));
+        var product =productService.getProductById(request.getId());
         StockQuantityResponse response = StockQuantityResponse.newBuilder()
-                .setStockQuantity(product.getStockQuantity())
+                .setStockQuantity(product.stockQuantity())
                 .build();
         responseObserver.onNext(response);
         responseObserver.onCompleted();
@@ -38,14 +33,13 @@ public class ProductGrpcServiceImpl extends ProductGrpcServiceGrpc.ProductGrpcSe
 
     @Override
     public void updateStockQuantity(StockQuantityUpdateRequest request, StreamObserver<StockQuantityResponse> responseObserver) {
-        Product product = productRepository.findById(request.getProductId())
-                .orElseThrow(() -> new EntityNotFoundException("Product not found"));
-        product.setStockQuantity(request.getNewQuantity());
-        productRepository.save(product);
+        var updatedProduct = ProductRequestDTO.builder().stockQuantity(request.getNewQuantity()).build();
+        var product = productService.updateProduct(request.getProductId(), updatedProduct);
         StockQuantityResponse response = StockQuantityResponse.newBuilder()
-                .setStockQuantity(product.getStockQuantity())
+                .setStockQuantity(product.stockQuantity())
                 .build();
         responseObserver.onNext(response);
         responseObserver.onCompleted();
     }
+
 }

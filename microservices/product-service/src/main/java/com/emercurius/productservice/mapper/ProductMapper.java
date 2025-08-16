@@ -39,5 +39,5 @@ public abstract class ProductMapper {
                 .orElseThrow(() -> new EntityNotFoundException("Category not found: " + categoryId));
     }
 
-    public abstract com.emercurius.productservice.grpc.ProductResponseDTO toGrpcDTO(Product product);
+    public abstract com.emercurius.productservice.grpc.ProductResponseDTO toGrpcDTO(ProductResponseDTO product);
 }

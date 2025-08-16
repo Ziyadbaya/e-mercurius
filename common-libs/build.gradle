@@ -55,10 +55,6 @@ protobuf {
 
 sourceSets {
     main {
-        java {
-            srcDirs "${project.buildDir}/generated/source/proto/main/java",
-                    "${project.buildDir}/generated/source/proto/main/grpc"
-        }
         proto {
             srcDir 'src/main/proto'
         }

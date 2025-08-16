@@ -1,5 +1,6 @@
 server:
   port: 8083
+
 spring:
   data-source:
     url: jdbc:postgresql://localhost:5435/order_db
@@ -14,3 +15,9 @@ spring:
     change-log: classpath:db/changelog/db.changelog-master.yaml
     enabled: true
     default-schema: public
+
+grpc:
+  client:
+    product-service:
+      address: "discovery:///product-service"
+      negotiationType: plaintext

@@ -17,7 +17,7 @@ public class OrderItem extends BaseEntity {
 
     private BigDecimal totalAmount;
 
-    private Long quantity;
+    private int quantity;
 
     private String productName;
 

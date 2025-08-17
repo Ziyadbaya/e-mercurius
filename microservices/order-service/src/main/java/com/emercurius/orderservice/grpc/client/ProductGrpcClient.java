@@ -8,14 +8,16 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 @Service
 @RequiredArgsConstructor
 public class ProductGrpcClient {
 
     @GrpcClient("product-service")
     private ProductGrpcServiceGrpc.ProductGrpcServiceBlockingStub blockingStub;
+
+    public ProductGrpcClient(ProductGrpcServiceGrpc.ProductGrpcServiceBlockingStub blockingStub) {
+        this.blockingStub = blockingStub;
+    }
 
     public StockQuantityResponse updateQuantity(String productId, int quantity) {
         return blockingStub.updateStockQuantity(StockQuantityUpdateRequest.newBuilder()
@@ -32,6 +34,16 @@ public class ProductGrpcClient {
                         .setQuantity(productQuantity.b)
                         .build()));
         return blockingStub.updateListStockQuantity(stockQuantityUpdateListRequestBuilder.build());
+    }
+
+    public StockAvailabilityListGrpcResponse checkListStockQuantity(List<Pair<String, Integer>> productQuantities) {
+        var stockQuantityUpdateListRequestBuilder = StockQuantityUpdateListRequest.newBuilder();
+        productQuantities.forEach(productQuantity ->
+                stockQuantityUpdateListRequestBuilder.addQuantityRequestList(StockQuantityUpdateRequest.newBuilder()
+                        .setProductId(productQuantity.a)
+                        .setQuantity(productQuantity.b)
+                        .build()));
+        return blockingStub.checkStockAvailability(stockQuantityUpdateListRequestBuilder.build());
     }
 
 }

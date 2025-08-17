@@ -38,8 +38,13 @@ message StockQuantityUpdateListRequest {
 message StockQuantityUpdateListResponse {
 }
 
-message StockAvailabilityGrpcResponse {
-  bool isAvailable = 1;
+message StockAvailabilityListGrpcResponse {
+  repeated StockAvailability stockAvailability = 1;
+}
+
+message StockAvailability {
+  string productId = 1;
+  bool isAvailable = 2;
 }
 
 service ProductGrpcService {
@@ -48,6 +53,6 @@ service ProductGrpcService {
   rpc GetStockQuantity(ProductIdRequest) returns (StockQuantityResponse);
   rpc UpdateStockQuantity(StockQuantityUpdateRequest) returns (StockQuantityResponse);
   rpc UpdateListStockQuantity(StockQuantityUpdateListRequest) returns (StockQuantityUpdateListResponse);
-  rpc CheckStockAvailability(StockQuantityUpdateRequest) returns (StockAvailabilityGrpcResponse);
+  rpc CheckStockAvailability(StockQuantityUpdateListRequest) returns (StockAvailabilityListGrpcResponse);
 
 }

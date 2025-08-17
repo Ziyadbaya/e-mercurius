@@ -23,12 +23,6 @@ public class ProductGrpcServiceImpl extends ProductGrpcServiceGrpc.ProductGrpcSe
             responseObserver.onNext(productMapper.toGrpcDTO(product));
             responseObserver.onCompleted();
         } catch (Exception e) {
-        try{
-            var product = productService.getProductById(request.getId());
-            responseObserver.onNext(productMapper.toGrpcDTO(product));
-            responseObserver.onCompleted();
-        }
-        catch (Exception e){
             responseObserver.onError(Status.INTERNAL
                     .withDescription("Error getProductById: " + e.getMessage())
                     .asRuntimeException());
@@ -44,8 +38,7 @@ public class ProductGrpcServiceImpl extends ProductGrpcServiceGrpc.ProductGrpcSe
                     .build();
             responseObserver.onNext(response);
             responseObserver.onCompleted();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             responseObserver.onError(Status.INTERNAL
                     .withDescription("Error get stock quantity: " + e.getMessage())
                     .asRuntimeException());
@@ -111,13 +104,17 @@ public class ProductGrpcServiceImpl extends ProductGrpcServiceGrpc.ProductGrpcSe
     }
 
     @Override
-    public void checkStockAvailability(StockQuantityUpdateRequest request, StreamObserver<StockAvailabilityGrpcResponse> responseObserver) {
-        var product = productService.getProductById(request.getProductId());
-        var updatedStock = product.stockQuantity() - request.getQuantity();
-        var response = StockAvailabilityGrpcResponse.newBuilder()
-                .setIsAvailable(updatedStock >= 0)
-                .build();
-        responseObserver.onNext(response);
+    public void checkStockAvailability(StockQuantityUpdateListRequest request, StreamObserver<StockAvailabilityListGrpcResponse> responseObserver) {
+        var responseBuilder = StockAvailabilityListGrpcResponse.newBuilder();
+        request.getQuantityRequestListOrBuilderList().forEach(quantityRequest -> {
+            var product = productService.getProductById(quantityRequest.getProductId());
+            var updatedStock = product.stockQuantity() - quantityRequest.getQuantity();
+            responseBuilder.addStockAvailability(StockAvailability.newBuilder()
+                    .setProductId(quantityRequest.getProductId())
+                    .setIsAvailable(updatedStock >= 0)
+                    .build());
+        });
+        responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
     }
 

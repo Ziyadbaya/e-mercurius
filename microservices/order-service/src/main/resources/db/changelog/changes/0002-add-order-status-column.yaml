@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0002-add-order-status-column
+      author: rlahrache
+      changes:
+        - addColumn:
+            tableName: "orders"
+            columns:
+              - column:
+                  name: status
+                  type: varchar(50)
+                  defaultValue: "PENDING"
+                  constraints:
+                    nullable: false
+        - dropColumn:
+            tableName: "orders-items"
+            columnName: "user_id"

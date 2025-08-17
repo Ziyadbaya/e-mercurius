@@ -18,9 +18,6 @@ public record OrderItemRequestDTO(
         @Positive(message = "Quantity must be positive")
         Long quantity,
 
-        @NotNull(message = "UserId cannot be null")
-        Long userId,
-
         @NotNull(message = "ProductId cannot be null")
         String productId
 ) {

@@ -28,8 +28,6 @@ public class OrderItem extends BaseEntity {
     @Column(name = "order_id", insertable = false, updatable = false)
     private Long orderId;
 
-    private Long userId;
-
     private String productId;
 
 }

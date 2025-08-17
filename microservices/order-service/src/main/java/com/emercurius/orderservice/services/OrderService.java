@@ -33,10 +33,13 @@ public class OrderService {
         orderRequestDTO.items().forEach(itemDTO -> {
             OrderItem item = orderItemMapper.toEntity(itemDTO);
             productQuantities.add(new Pair<>(item.getProductId(), item.getQuantity()));
-            productGrpcClient.updateQuantity(item.getProductId(), item.getQuantity());
             order.addItem(item);
         });
-        productGrpcClient.updateListStockQuantity(productQuantities);
+        productGrpcClient.checkListStockQuantity(productQuantities).getStockAvailabilityList().forEach(stockAvailability -> {
+            if(!stockAvailability.getIsAvailable()) {
+                throw new EntityNotFoundException("Insufficient stock for product id " + stockAvailability.getProductId());
+            }
+        });
         Order savedOrder = orderRepository.save(order);
         return orderMapper.toDTO(savedOrder);
     }

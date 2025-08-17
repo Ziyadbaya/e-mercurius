@@ -31,10 +31,23 @@ message StockQuantityUpdateRequest {
   int32 quantity = 2;
 }
 
+message StockQuantityUpdateListRequest {
+  repeated StockQuantityUpdateRequest quantityRequestList = 1;
+}
+
+message StockQuantityUpdateListResponse {
+}
+
+message StockAvailabilityGrpcResponse {
+  bool isAvailable = 1;
+}
+
 service ProductGrpcService {
 
   rpc GetProductById(ProductIdRequest) returns (ProductGrpcResponseDTO);
   rpc GetStockQuantity(ProductIdRequest) returns (StockQuantityResponse);
   rpc UpdateStockQuantity(StockQuantityUpdateRequest) returns (StockQuantityResponse);
+  rpc UpdateListStockQuantity(StockQuantityUpdateListRequest) returns (StockQuantityUpdateListResponse);
+  rpc CheckStockAvailability(StockQuantityUpdateRequest) returns (StockAvailabilityGrpcResponse);
 
 }

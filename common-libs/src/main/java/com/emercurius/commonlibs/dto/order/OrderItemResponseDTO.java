@@ -12,8 +12,6 @@ public record OrderItemResponseDTO(
 
         Long orderId,
 
-        Long userId,
-
         String productId
 ) {
 }

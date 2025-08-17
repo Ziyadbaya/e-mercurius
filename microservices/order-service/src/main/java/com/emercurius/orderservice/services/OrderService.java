@@ -11,7 +11,11 @@ import com.emercurius.orderservice.mapper.OrderMapper;
 import com.emercurius.orderservice.repositories.OrderRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.antlr.v4.runtime.misc.Pair;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -25,13 +29,13 @@ public class OrderService {
     @Transactional
     public OrderResponseDTO createOrder(OrderRequestDTO orderRequestDTO) {
         Order order = orderMapper.toEntity(orderRequestDTO);
-
+        List<Pair<String, Integer>> productQuantities = new ArrayList<>();
         orderRequestDTO.items().forEach(itemDTO -> {
             OrderItem item = orderItemMapper.toEntity(itemDTO);
-            productGrpcClient.updateQuantity(item.getProductId(), item.getQuantity());
+            productQuantities.add(new Pair<>(item.getProductId(), item.getQuantity()));
             order.addItem(item);
         });
-
+        productGrpcClient.updateListStockQuantity(productQuantities);
         Order savedOrder = orderRepository.save(order);
         return orderMapper.toDTO(savedOrder);
     }

@@ -7,6 +7,7 @@ import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
 import net.devh.boot.grpc.server.service.GrpcService;
+import org.springframework.transaction.annotation.Transactional;
 
 @GrpcService
 @RequiredArgsConstructor
@@ -17,12 +18,11 @@ public class ProductGrpcServiceImpl extends ProductGrpcServiceGrpc.ProductGrpcSe
 
     @Override
     public void getProductById(ProductIdRequest request, StreamObserver<ProductGrpcResponseDTO> responseObserver) {
-        try{
+        try {
             var product = productService.getProductById(request.getId());
             responseObserver.onNext(productMapper.toGrpcDTO(product));
             responseObserver.onCompleted();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             responseObserver.onError(Status.INTERNAL
                     .withDescription("Error getProductById: " + e.getMessage())
                     .asRuntimeException());
@@ -31,15 +31,14 @@ public class ProductGrpcServiceImpl extends ProductGrpcServiceGrpc.ProductGrpcSe
 
     @Override
     public void getStockQuantity(ProductIdRequest request, StreamObserver<StockQuantityResponse> responseObserver) {
-        try{
+        try {
             var product = productService.getProductById(request.getId());
             StockQuantityResponse response = StockQuantityResponse.newBuilder()
                     .setStockQuantity(product.stockQuantity())
                     .build();
             responseObserver.onNext(response);
             responseObserver.onCompleted();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             responseObserver.onError(Status.INTERNAL
                     .withDescription("Error get stock quantity: " + e.getMessage())
                     .asRuntimeException());
@@ -73,6 +72,46 @@ public class ProductGrpcServiceImpl extends ProductGrpcServiceGrpc.ProductGrpcSe
                     .withDescription("Error updating stock quantity: " + e.getMessage())
                     .asRuntimeException());
         }
+    }
+
+    @Override
+    @Transactional
+    public void updateListStockQuantity(StockQuantityUpdateListRequest request, StreamObserver<StockQuantityUpdateListResponse> responseObserver) {
+        try {
+            request.getQuantityRequestListOrBuilderList().forEach(quantityRequest -> {
+                var product = productService.getProductById(quantityRequest.getProductId());
+                var updatedStock = product.stockQuantity() - quantityRequest.getQuantity();
+
+                if (updatedStock >= 0) {
+                    var updatedProduct = ProductRequestDTO.builder().stockQuantity(updatedStock).build();
+                    productService.updateProduct(quantityRequest.getProductId(), updatedProduct);
+                } else {
+                    responseObserver.onError(Status.INVALID_ARGUMENT
+                            .withDescription(String.format(
+                                    "Insufficient stock. Current stock: %d, requested quantity: %d",
+                                    product.stockQuantity(),
+                                    quantityRequest.getQuantity()))
+                            .asRuntimeException());
+                }
+            });
+            responseObserver.onNext(StockQuantityUpdateListResponse.newBuilder().build());
+            responseObserver.onCompleted();
+        } catch (Exception e) {
+            responseObserver.onError(Status.INTERNAL
+                    .withDescription("Error updating stock quantity: " + e.getMessage())
+                    .asRuntimeException());
+        }
+    }
+
+    @Override
+    public void checkStockAvailability(StockQuantityUpdateRequest request, StreamObserver<StockAvailabilityGrpcResponse> responseObserver) {
+        var product = productService.getProductById(request.getProductId());
+        var updatedStock = product.stockQuantity() - request.getQuantity();
+        var response = StockAvailabilityGrpcResponse.newBuilder()
+                .setIsAvailable(updatedStock >= 0)
+                .build();
+        responseObserver.onNext(response);
+        responseObserver.onCompleted();
     }
 
 }

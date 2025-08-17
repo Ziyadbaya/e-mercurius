@@ -23,6 +23,12 @@ public class ProductGrpcServiceImpl extends ProductGrpcServiceGrpc.ProductGrpcSe
             responseObserver.onNext(productMapper.toGrpcDTO(product));
             responseObserver.onCompleted();
         } catch (Exception e) {
+        try{
+            var product = productService.getProductById(request.getId());
+            responseObserver.onNext(productMapper.toGrpcDTO(product));
+            responseObserver.onCompleted();
+        }
+        catch (Exception e){
             responseObserver.onError(Status.INTERNAL
                     .withDescription("Error getProductById: " + e.getMessage())
                     .asRuntimeException());
@@ -38,7 +44,8 @@ public class ProductGrpcServiceImpl extends ProductGrpcServiceGrpc.ProductGrpcSe
                     .build();
             responseObserver.onNext(response);
             responseObserver.onCompleted();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             responseObserver.onError(Status.INTERNAL
                     .withDescription("Error get stock quantity: " + e.getMessage())
                     .asRuntimeException());

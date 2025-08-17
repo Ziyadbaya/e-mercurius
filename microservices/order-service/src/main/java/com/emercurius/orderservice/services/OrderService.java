@@ -33,6 +33,7 @@ public class OrderService {
         orderRequestDTO.items().forEach(itemDTO -> {
             OrderItem item = orderItemMapper.toEntity(itemDTO);
             productQuantities.add(new Pair<>(item.getProductId(), item.getQuantity()));
+            productGrpcClient.updateQuantity(item.getProductId(), item.getQuantity());
             order.addItem(item);
         });
         productGrpcClient.updateListStockQuantity(productQuantities);
